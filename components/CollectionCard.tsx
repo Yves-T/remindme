@@ -136,7 +136,6 @@ const CollectionCard = ({ collection }: Props) => {
                     <AlertDialogAction
                       onClick={() => {
                         startTransition(removeCollection);
-                        removeCollection();
                       }}
                     >
                       Proceed

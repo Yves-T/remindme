@@ -25,5 +25,5 @@ export async function deleteCollection(id: number) {
   }
 
   revalidatePath("/");
-  return await prisma.collection.delete({ where: { id } });
+  return await prisma.collection.delete({ where: { id, userId: user.id } });
 }
