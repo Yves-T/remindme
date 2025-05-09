@@ -1,5 +1,10 @@
+import NavBar from "@/components/NavBar";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Separator } from "@/components/ui/separator";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,12 +28,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl={"/"}>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <div className="flex min-h-screen w-full flex-col items-center dark:bg-black">
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <NavBar />
+              <Separator />
+              <main className="flex w-full flex-grow items-center justify-center dark:bg-neutral-950">
+                {children}
+                <Toaster richColors />
+              </main>
+            </ThemeProvider>
+          </div>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
